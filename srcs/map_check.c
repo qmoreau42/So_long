@@ -6,7 +6,7 @@
 /*   By: qmoreau <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 15:11:22 by qmoreau           #+#    #+#             */
-/*   Updated: 2022/11/18 17:49:47 by qmoreau          ###   ########.fr       */
+/*   Updated: 2022/11/18 18:42:49 by qmoreau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ int	check_args(int argc, char **argv)
 	if (argv[1][len - 1] != 'r' || argv[1][len - 2] != 'e' ||
 			argv[1][len - 3] != 'b' || argv[1][len - 4] != '.')
 		return (1);
-	fd = open(argv[1], O_DIRECTORY);
-	if (fd != -1)
+	fd = open(argv[1], O_RDONLY);
+	if (fd == -1)
 		return (1);
 	return (0);
 }
@@ -54,6 +54,7 @@ int	check_map(t_data *data, char **argv)
 	if (closed(data->map))
 		return (closed(data->map));
 	init_pl(data);
+	data->valid_ex = 0;
 	check_validmap(data, data->pers_y, data->pers_x);
 	if (check_path(data) == 8)
 		return (8);
